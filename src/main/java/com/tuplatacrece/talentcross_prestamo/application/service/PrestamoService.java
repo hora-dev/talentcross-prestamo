@@ -18,8 +18,27 @@ public class PrestamoService {
         return prestamoRepository.findByDni(dni);
     }
 
-    public void save(String dni, BigDecimal monto) {
-        prestamoRepository.save(dni, monto);
+    public Prestamo save(String dni, BigDecimal monto, Integer visualizaciones) {
+        return prestamoRepository.save(dni, monto, visualizaciones);
     }
+
+    public Integer visualizacionesPrestamo(String dni) {
+        Optional<Prestamo> prestamo = prestamoRepository.findByDni(dni);
+        if(prestamo.isPresent()) {
+            return prestamo.get().getVisualizaciones();
+        }
+        return 0;
+    }
+
+    public Prestamo visualizarPrestamo(String dni) {
+        Optional<Prestamo> prestamo = prestamoRepository.findByDni(dni);
+        if(prestamo.isPresent()) {
+            prestamo.get().setVisualizaciones(prestamo.get().getVisualizaciones() + 1);
+            prestamoRepository.updateVisualizaciones(dni, prestamo.get().getVisualizaciones());
+            return prestamo.get();
+        }
+        return new Prestamo();
+    }
+
 
 }

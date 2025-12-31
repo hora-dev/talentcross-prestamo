@@ -24,12 +24,24 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
     }
 
     @Override
-    public Prestamo save(String dni, BigDecimal monto) {
+    public Prestamo save(String dni, BigDecimal monto, Integer visualizaciones) {
         Prestamo prestamo = new Prestamo();
         prestamo.setDni(dni);
         prestamo.setMonto(monto);
+        prestamo.setVisualizaciones(visualizaciones);
         PrestamoEntity prestamoEntity = prestamoMapper.toEntity(prestamo);
         prestamoEntity = prestamoCrudRepository.save(prestamoEntity);
         return prestamoMapper.toDomain(prestamoEntity);
+    }
+
+    @Override
+    public Prestamo updateVisualizaciones(String dni, Integer visualizaciones) {
+        Optional<PrestamoEntity> prestamoEntity = prestamoCrudRepository.findByDni(dni);
+        if(prestamoEntity.isPresent()) {
+            prestamoEntity.get().setVisualizaciones( visualizaciones );
+            prestamoCrudRepository.save(prestamoEntity.get());
+            return prestamoMapper.toDomain( prestamoEntity.get() );
+        }
+        return new Prestamo();
     }
 }

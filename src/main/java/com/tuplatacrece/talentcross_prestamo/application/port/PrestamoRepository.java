@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface PrestamoRepository {
     Optional<Prestamo> findByDni(String dni);
-    Prestamo save(String dni, BigDecimal monto);
+    Prestamo save(String dni, BigDecimal monto, Integer visualizaciones);
+    Prestamo updateVisualizaciones(String dni, Integer visualizaciones);
 }

@@ -22,4 +22,6 @@ public class PrestamoEntity {
     @Column(nullable = false)
     private BigDecimal monto;
 
+    @Column(nullable = false)
+    private Integer visualizaciones;
 }

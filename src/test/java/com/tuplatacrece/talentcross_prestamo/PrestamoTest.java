@@ -47,4 +47,36 @@ public class PrestamoTest {
 
         Assertions.assertFalse(prestamoOptional.isPresent());
     }
+
+    @Test
+    void tieneVisualizacionesDePrestamo() {
+        String dni = "40123457";
+
+        Prestamo prestamoConVisualizaciones = new Prestamo();
+        prestamoConVisualizaciones.setDni(dni);
+        prestamoConVisualizaciones.setMonto(new BigDecimal(10000));
+        prestamoConVisualizaciones.setVisualizaciones(3);
+
+        Mockito.when(prestamoRepository.findByDni(dni)).thenReturn(Optional.of(prestamoConVisualizaciones));
+
+        Integer visualizaciones = prestamoService.visualizacionesPrestamo(dni);
+
+        Assertions.assertEquals(3, visualizaciones);
+    }
+
+    @Test
+    void visualizarPrestamo() {
+        String dni = "40123458";
+
+        Prestamo prestamo = new Prestamo();
+        prestamo.setDni(dni);
+        prestamo.setMonto(new BigDecimal(10000));
+        prestamo.setVisualizaciones(0);
+
+        Mockito.when(prestamoRepository.findByDni(dni)).thenReturn(Optional.of(prestamo));
+
+        Prestamo prestamoVisualizacion = prestamoService.visualizarPrestamo(dni);
+
+        Assertions.assertEquals(1, prestamoVisualizacion.getVisualizaciones());
+    }
 }

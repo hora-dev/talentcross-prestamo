@@ -1,6 +1,8 @@
 package com.tuplatacrece.talentcross_prestamo.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.math.BigDecimal;
@@ -11,6 +13,7 @@ public class Prestamo {
     private Long id;
     private String dni;
     private BigDecimal monto;
+    private Integer visualizaciones;
 
     public boolean tienePrestamo() {
         return monto.compareTo(BigDecimal.ZERO) > 0;
