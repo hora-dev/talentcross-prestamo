@@ -44,4 +44,9 @@ public class PrestamoRepositoryImpl implements PrestamoRepository {
         }
         return new Prestamo();
     }
+
+    @Override
+    public Prestamo getPrestamo(String dni) {
+        return prestamoMapper.toDomain(prestamoCrudRepository.findByDni(dni).get());
+    }
 }

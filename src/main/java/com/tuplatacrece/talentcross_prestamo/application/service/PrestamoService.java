@@ -40,5 +40,10 @@ public class PrestamoService {
         return new Prestamo();
     }
 
+    public Prestamo getPrestamo(String dni) {
+        Optional<Prestamo> prestamo = prestamoRepository.findByDni(dni);
+        return prestamo.orElseGet(Prestamo::new);
+    }
+
 
 }

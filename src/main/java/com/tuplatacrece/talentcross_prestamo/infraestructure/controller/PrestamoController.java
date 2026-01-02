@@ -20,7 +20,7 @@ public class PrestamoController {
     private final PrestamoService prestamoService;
     private final PrestamoMapper prestamoMapper;
 
-    @GetMapping
+    @GetMapping("/tienePrestamo")
     public ResponseEntity<TienePrestamoResponseDTO> tienePrestamo(@RequestParam String dni) {
         Optional<Prestamo> prestamo = prestamoService.findByDni(dni);
         if (prestamo.isPresent()) {
@@ -45,5 +45,10 @@ public class PrestamoController {
     @GetMapping("/visualizar")
     public ResponseEntity<PrestamoResponseDTO> visualizarPrestamo(@RequestParam String dni) {
         return ResponseEntity.ok(prestamoMapper.toDTO(prestamoService.visualizarPrestamo(dni)));
+    }
+
+    @GetMapping
+    public ResponseEntity<PrestamoResponseDTO> getPrestamo(@RequestParam String dni) {
+        return ResponseEntity.ok(prestamoMapper.toDTO(prestamoService.getPrestamo(dni)));
     }
 }
